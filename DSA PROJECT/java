@@ -1,0 +1,73 @@
+const questions = [
+  {
+    question: "What is the capital of the Philippines?",
+    options: ["Cebu", "Quezon City", "Manila", "Davao City"],
+    answer: 2
+  },
+  {
+    question: "Which island group is home to Regions IX to XIII and BARMM?",
+    options: ["Luzon", "Visayas", "Mindanao", "Palawan"],
+    answer: 2
+  },
+  {
+    question: "What is the national language of the Philippines?",
+    options: ["English", "Filipino", "Spanish", "Tagalog"],
+    answer: 1
+  },
+  {
+    question: "Which mountain is the highest in the Philippines?",
+    options: ["Mount Mayon", "Mount Pinatubo", "Mount Apo", "Mount Makiling"],
+    answer: 2
+  },
+  {
+    question: "What is the staple food of the Philippines?",
+    options: ["Corn", "Wheat", "Rice", "Potatoes"],
+    answer: 2
+  }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  document.getElementById("start-btn").style.display = "none";
+  showQuestion();
+}
+
+function showQuestion() {
+  if (currentQuestionIndex < questions.length) {
+    const question = questions[currentQuestionIndex];
+    document.getElementById("question").innerText = question.question;
+    const optionsButtons = document.getElementById("options").children;
+    for (let i = 0; i < optionsButtons.length; i++) {
+      optionsButtons[i].innerText = question.options[i];
+      optionsButtons[i].style.display = "inline-block";
+    }
+  } else {
+    showResults();
+  }
+}
+
+function selectAnswer(optionIndex) {
+  const question = questions[currentQuestionIndex];
+  if (optionIndex === question.answer) {
+    score++;
+    alert("Correct!");
+  } else {
+    alert("Incorrect.");
+  }
+  currentQuestionIndex++;
+  showQuestion();
+}
+
+function showResults() {
+  document.getElementById("question").innerText = "Quiz Complete!";
+  document.getElementById("score").innerText = `Your score: ${score} out of ${questions.length}`;
+  document.getElementById("start-btn").style.display = "inline-block";
+  const optionsButtons = document.getElementById("options").children;
+  for (let button of optionsButtons) {
+    button.style.display = "none";
+  }
+}
